@@ -16,15 +16,6 @@ public class Roman {
     }
 
     public static String toRoman(int n) {
-	/*
-	if (n <= 0) return "";
-	else if (n == 5) return "V";
-	else if (n == 10) return "X";
-	else if (n == 50) return "L";
-	else if (n % 5 == 4) return toRoman(n-4) + "IV";
-	else if (n % 50 == 40) return toRoman(n-40) + "XL"; 
-	else return toRoman(n-1) + "I";
-	*/
 	  if (n <= 0) return "";
 	  if (n < 4) return "I" + toRoman(n-1);
 	  if (n == 4) return "IV";
@@ -39,6 +30,15 @@ public class Roman {
 	  if (n < 900) return "D" + toRoman(n-500);
 	  if (n < 1000) return "CM" + toRoman(n-900);
 	  return "M" + toRoman(n-1000);
+    }
+
+    public boolean equals(Object rhs) {
+	if (!rhs instanceof Roman) return false;
+	return this._n == rhs.getn();
+    }
+
+    public int getn() {
+	return _n;
     }
 
     public static void main(String[] args) {

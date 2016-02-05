@@ -33,18 +33,24 @@ public class Roman {
     }
 
     public boolean equals(Object rhs) {
-	if (!rhs instanceof Roman) return false;
-	return this._n == rhs.getn();
+	return (rhs instanceof Roman) && _n == ((Roman)rhs)._n;
     }
 
-    public int getn() {
-	return _n;
+    public int compareTo(Roman rhs) {
+	return _n - rhs._n;
     }
 
     public static void main(String[] args) {
 	int N = Integer.parseInt(args[0]);
-	Roman r = new Roman(N);
-	System.out.println(r);
+	for (int i = 1; i < N; i++) {
+	    Roman a = new Roman(i);
+	   //System.out.println(i + " : " + a); 
+	}
+	Roman a = new Roman(10);
+	//System.out.println(a.compareTo(a));
+	//System.out.println(a.equals("X"));
+	//System.out.println(a.compareTo(new Roman(15))); // a negative int
+        //System.out.println(a.compareTo(new Roman(5)))); // a positive int 
     }
 
 }

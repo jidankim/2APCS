@@ -26,9 +26,50 @@ public class RomanApp {
 	return ret;
     }
 
+    public static Roman sum(ArrayList<Roman> L) {
+	int ans = 0;
+	for (Roman curr : L)
+	    ans += curr.intValue();
+	return new Roman(ans);
+    }
+
+    // pre: L.size() > 0
+    // post: L is unchanged, returns the even Roman numbers
+    public static ArrayList<Roman> filterEvens(ArrayList<Roman> L) {
+	ArrayList<Roman> ret = new ArrayList<Roman>();
+	for (Roman curr : L) 
+	    if (curr.intValue() % 2 == 0)
+		ret.add(curr);
+	return ret;
+    }
+
+    // pre: L.size() > 0
+    // post: n is added to each roman numeral in L
+    // if L -> [I,II] mapAdd(1,L)
+    // L becomes [II,III]
+    public static void mapAdd(int n, ArrayList<Roman> L) {
+	/* wrong example
+	for (Roman curr : L) 
+	    curr = new Roman(curr.intValue() + n);
+	*/
+	int i = 0;
+	for (Roman curr : L) {
+	    L.set(i, new Roman(curr.intValue() + n));
+	    i++;
+	}
+	
+    }
+
     public static void main(String[] args) {
 	ArrayList<Roman> romans = populate(5, 2, 100);
 	System.out.println(romans);
-	System.out.println("min: " + min(romans));
+	Number minValue = min(romans);
+	System.out.println("min: " + minValue + " int: " + minValue.intValue());
+	Number total = sum(romans);
+	System.out.println("sum: " + total + " int: " + total.intValue());
+	System.out.println("filter evens: " + filterEvens(romans));
+	mapAdd(2, romans);
+	System.out.println(romans);
+	
     }
 }

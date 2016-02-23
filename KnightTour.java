@@ -33,7 +33,7 @@ public class KnightTour{
     //                false otherwise
     private boolean solve(int x, int y){
 	try {
-	    Thread.sleep(10);                 //1000 milliseconds is one second.
+	    Thread.sleep(1);                 //1000 milliseconds is one second.
 	} catch(InterruptedException ex) {
 	    Thread.currentThread().interrupt();
 	}

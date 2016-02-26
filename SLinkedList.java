@@ -8,6 +8,7 @@ public class SLinkedList {
 	_size = 0;
     }
 
+    // O(1)
     public void addFirst(String value) {
 	/*
 	if (_size == 0)
@@ -20,6 +21,7 @@ public class SLinkedList {
 	_size++;
     }
 
+    // O(1)
     public void addLast(String value) {
 	Node newLast = new Node(value, null);
 	if (_size == 0) _head = _tail = newLast;
@@ -30,6 +32,7 @@ public class SLinkedList {
 	_size++;
     }
 
+    // O(1)
     public String removeFirst() {
 	if (_size == 0) throw new IllegalStateException();
 	String ans = _head.getValue();
@@ -53,6 +56,7 @@ public class SLinkedList {
 	return ans;
     }
 
+    // O(1)
     // post: throws and IllegalStateException if the list is empty
     //       otherwise returns the first value.
     public String getFirst() {
@@ -80,6 +84,7 @@ public class SLinkedList {
 	return curr.getValue();
     }
 
+    // O(n)
     // S = [ a,b]
     // M = [ c,d,e]
     // S.append(M) -> [a,b,c,d,e]
@@ -119,6 +124,7 @@ public class SLinkedList {
     }
 
     /*
+      O(n)
       public void reverse() {
           reverseNode(_head, _head.getNext());
 	  Node temp = _head;
@@ -134,6 +140,7 @@ public class SLinkedList {
 	  reverseNode(b, bNext);
       }
 
+      O(n)
       public void reverse() {
           if (size() > 1) {
 	      Node node = _head;
@@ -148,6 +155,7 @@ public class SLinkedList {
       }
      */
 
+    // O(n)
     // post: returns null if key is not in the list.
     //       otherwise Node that contains the first occurence of key in the list
     public Node search(String key) {
@@ -182,6 +190,7 @@ public class SLinkedList {
 	return _size;
     }
 
+    // O(n)
     public String toString() {
 	String ans = "";
 	Node n = _head;

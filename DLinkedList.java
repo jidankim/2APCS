@@ -157,6 +157,18 @@ public class DLinkedList {
 	}
     }
 
+    /*
+      public DNode middleNode() {
+      if (isEmpty()) throw new IllegaStateException();
+      return isMid(_header, _trailer);
+      }
+
+      public DNode isMid(DNode x, DNode y) {
+      if (x == y || getNext(x) == y) return y;
+      reutrn isMid(getNext(x), getPrevious(y));
+      }
+     */
+
     public String toString() {
 	String ans = "";
 	if (_size < 1) return ans + "]";

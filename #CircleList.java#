@@ -1,0 +1,42 @@
+public class CircleList {
+
+    private Node _cursor;
+    private int _size;
+   
+    public CircleList() {
+	_cursor = null;
+	_size = 0;
+    }
+
+    public int size() {
+	return _size;
+    }
+
+    public boolean isEmpty() {
+	return _size == 0;
+    }
+
+    public Node getCursor() {
+	return _cursor;
+    }
+
+    public void add(Node newNode) {
+	if (_size == 0) {
+	    _cursor = newNode;
+	    newNode.setNext(newNode);
+	} else {
+	    Node curr = _cursor;
+	    for (int i = 0; i < size() - 1; i++) 
+		curr = curr.getNext();
+	    curr.setNext(newNode);
+	    newNode.setNext(_cursor);
+	}
+	_size++;
+    }
+
+    public static void main(String[] args) {
+	CircleList L = newCircleList();
+	L.add(new Node("Abe", null));
+	L.add(new Node("Betty", null));
+    }
+}

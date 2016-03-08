@@ -21,15 +21,12 @@ public class CircleList {
     }
 
     public void add(Node newNode) {
-	if (_size == 0) {
+	if (isEmpty()) {
 	    _cursor = newNode;
-	    newNode.setNext(newNode);
+	    _cursor.setNext(_cursor);
 	} else {
-	    Node curr = _cursor;
-	    for (int i = 0; i < size() - 1; i++) 
-		curr = curr.getNext();
-	    curr.setNext(newNode);
-	    newNode.setNext(_cursor);
+	    newNode.setNext(_cursor.getNext());
+	    _cursor.setNext(newNode);
 	}
 	_size++;
     }

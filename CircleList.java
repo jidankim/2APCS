@@ -31,9 +31,41 @@ public class CircleList {
 	_size++;
     }
 
+    public void advance() {
+	_cursor = _cursor.getNext();
+    }
+
+    public Node remove() {
+	if (isEmpty()) throw new IllegalStateException("empty list");
+	Node ret = _cursor.getNext();
+	if (size() == 1) _cursor = null; // ret is still cursor
+	else _cursor.setNext(ret.getNext());
+	ret.setNext(null);
+	_size--;
+	return ret;
+    }
+
+    public String toString() {
+	String ans = "";
+	Node t = _cursor;
+	for (int i = 0; i < size(); i++) {
+	    ans += t + ", ";
+	    t = t.getNext();
+	}
+	int len = ans.length();
+	if (len > 0) ans = abs.substring(0, len-2);
+	return "[" + ans "]";
+    }
+
     public static void main(String[] args) {
 	CircleList L = newCircleList();
+	System.out.println(L);
 	L.add(new Node("Abe", null));
+	System.out.println(L);
 	L.add(new Node("Betty", null));
+	System.out.println(L);
+	L.advance();
+	L.add(new Node("Ada", null));
+	System.out.println(L);
     }
 }

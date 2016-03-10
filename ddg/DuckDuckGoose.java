@@ -45,7 +45,66 @@ public class DuckDuckGoose{
     // Returns a randomly selected child to be it.
     // The child is removed from the circle and its node is returned.
     public Node chooseIt(){
-	return null;
+	int n = (int)(Math.random()*_circle.size());
+	for (int i = 0; i < n; i++)
+	    _circle.advance();
+	return _circle.remove();
+    }
+
+    /*
+Whoever is "It" designates a kid as a Duck with probability 0.75; otherwise
+the designation is Goose with probability 0.25.
+
+Below is a sample run after 5 rounds:
+
+kids: [Abe, Yuki, Quin, Joe, Vern, Pam, Eve, Jen, Cal]
+It: Abe
+kids: [Cal, Yuki, Quin, Joe, Vern, Pam, Eve, Jen]
+Duck: Yuki
+Duck: Quin
+Duck: Joe
+Duck: Vern
+Duck: Pam
+Goose: Eve
+Race between: Abe and Eve
+Abe wins race.
+kids: [Abe, Jen, Cal, Yuki, Quin, Joe, Vern, Pam]
+It: Eve
+kids: [Abe, Jen, Cal, Yuki, Quin, Joe, Vern, Pam]
+Goose: Jen
+Race between: Eve and Jen
+Eve wins race.
+kids: [Eve, Cal, Yuki, Quin, Joe, Vern, Pam, Abe]
+It: Jen
+kids: [Eve, Cal, Yuki, Quin, Joe, Vern, Pam, Abe]
+Duck: Cal
+Duck: Yuki
+Duck: Quin
+Duck: Joe
+Goose: Vern
+Race between: Jen and Vern
+Vern wins race.
+kids: [Vern, Pam, Abe, Eve, Cal, Yuki, Quin, Joe]
+It: Jen
+kids: [Vern, Pam, Abe, Eve, Cal, Yuki, Quin, Joe]
+Duck: Pam
+Goose: Abe
+Race between: Jen and Abe
+Abe wins race.
+kids: [Abe, Eve, Cal, Yuki, Quin, Joe, Vern, Pam]
+It: Jen
+kids: [Abe, Eve, Cal, Yuki, Quin, Joe, Vern, Pam]
+Duck: Eve
+Goose: Cal
+Race between: Jen and Cal
+Jen wins race.
+kids: [Jen, Yuki, Quin, Joe, Vern, Pam, Abe, Eve]
+     */
+    public void play(int n) {
+	Node it = chooseIt();
+	for (int i = 0; i < n; i++) {
+	    System.out.println(_circle);
+	}
     }
 
     public String toString() {
@@ -53,6 +112,7 @@ public class DuckDuckGoose{
     }
 
     public static void main(String [] args){
+	int N = Integer.parseInt(args[0]);
 	String [] n = {"Abe","Cal","Jen","Eve","Pam","Vern", "Joe", "Quin", "Yuki"};
 	// *** Question 1 *** 
 	// Declare and instanciate an ArrayList of strings.
@@ -64,8 +124,8 @@ public class DuckDuckGoose{
 	// *** Question 3 ****
 	// Declare and instantiate a DuckDuckGoose object.
 	// The constructor's argument will be an ArrayList of Strings.
-	DuckDuckGoose l = new DuckDuckGoose(a);
-
+	DuckDuckGoose app = new DuckDuckGoose(a);
+	//	app.play(N);
     }
 
 

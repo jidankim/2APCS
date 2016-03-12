@@ -53,19 +53,8 @@ public class CircleList {
 	    t = t.getNext();
 	}
 	int len = ans.length();
-	if (len > 0) ans = abs.substring(0, len-2);
-	return "[" + ans "]";
+	if (len > 0) ans = ans.substring(0, len-2);
+	return "[" + ans + "]";
     }
 
-    public static void main(String[] args) {
-	CircleList L = newCircleList();
-	System.out.println(L);
-	L.add(new Node("Abe", null));
-	System.out.println(L);
-	L.add(new Node("Betty", null));
-	System.out.println(L);
-	L.advance();
-	L.add(new Node("Ada", null));
-	System.out.println(L);
-    }
 }

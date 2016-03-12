@@ -33,7 +33,6 @@ public class DuckDuckGoose{
 
     private CircleList _circle;
 
-    // *** Question 4 ****
     // Transfer the names from the ArrayList into a CircleList.
     public DuckDuckGoose(ArrayList<String> names){
 	_circle = new CircleList();
@@ -41,7 +40,6 @@ public class DuckDuckGoose{
 	    _circle.add(new Node(names.get(i), null));
     }
 
-    // *** Question 5 ****
     // Returns a randomly selected child to be it.
     // The child is removed from the circle and its node is returned.
     public Node chooseIt(){
@@ -51,59 +49,29 @@ public class DuckDuckGoose{
 	return _circle.remove();
     }
 
-    /*
-Whoever is "It" designates a kid as a Duck with probability 0.75; otherwise
-the designation is Goose with probability 0.25.
-
-Below is a sample run after 5 rounds:
-
-kids: [Abe, Yuki, Quin, Joe, Vern, Pam, Eve, Jen, Cal]
-It: Abe
-kids: [Cal, Yuki, Quin, Joe, Vern, Pam, Eve, Jen]
-Duck: Yuki
-Duck: Quin
-Duck: Joe
-Duck: Vern
-Duck: Pam
-Goose: Eve
-Race between: Abe and Eve
-Abe wins race.
-kids: [Abe, Jen, Cal, Yuki, Quin, Joe, Vern, Pam]
-It: Eve
-kids: [Abe, Jen, Cal, Yuki, Quin, Joe, Vern, Pam]
-Goose: Jen
-Race between: Eve and Jen
-Eve wins race.
-kids: [Eve, Cal, Yuki, Quin, Joe, Vern, Pam, Abe]
-It: Jen
-kids: [Eve, Cal, Yuki, Quin, Joe, Vern, Pam, Abe]
-Duck: Cal
-Duck: Yuki
-Duck: Quin
-Duck: Joe
-Goose: Vern
-Race between: Jen and Vern
-Vern wins race.
-kids: [Vern, Pam, Abe, Eve, Cal, Yuki, Quin, Joe]
-It: Jen
-kids: [Vern, Pam, Abe, Eve, Cal, Yuki, Quin, Joe]
-Duck: Pam
-Goose: Abe
-Race between: Jen and Abe
-Abe wins race.
-kids: [Abe, Eve, Cal, Yuki, Quin, Joe, Vern, Pam]
-It: Jen
-kids: [Abe, Eve, Cal, Yuki, Quin, Joe, Vern, Pam]
-Duck: Eve
-Goose: Cal
-Race between: Jen and Cal
-Jen wins race.
-kids: [Jen, Yuki, Quin, Joe, Vern, Pam, Abe, Eve]
-     */
     public void play(int n) {
+        System.out.println("kids: " + _circle);
 	Node it = chooseIt();
 	for (int i = 0; i < n; i++) {
-	    System.out.println(_circle);
+            System.out.println("It: " + it);
+            System.out.println("kids: " + _circle);
+            while (Math.random() <= 0.75) {
+                System.out.println("Duck: " + _circle.getCursor().getNext());
+                _circle.advance();
+            }
+            System.out.println("Goose: " + _circle.getCursor().getNext());
+            System.out.println("Race between: " + it + " and " + _circle.getCursor().getNext());
+            if (Math.random() <= 0.5) {
+                System.out.println(it + " wins race.");
+                Node temp = it;
+                it = _circle.getCursor().getNext();
+                _circle.remove();
+                _circle.add(temp);
+            } else {
+                System.out.println(_circle.getCursor().getNext() + " wins race.");
+                _circle.advance();
+            }
+            System.out.println("kids: " + _circle);
 	}
     }
 
@@ -114,18 +82,15 @@ kids: [Jen, Yuki, Quin, Joe, Vern, Pam, Abe, Eve]
     public static void main(String [] args){
 	int N = Integer.parseInt(args[0]);
 	String [] n = {"Abe","Cal","Jen","Eve","Pam","Vern", "Joe", "Quin", "Yuki"};
-	// *** Question 1 *** 
 	// Declare and instanciate an ArrayList of strings.
 	ArrayList<String> a = new ArrayList<String>();
-	// *** Question 2 ***
 	// Copy the items of the String [] into an ArrayList of Strings.
 	for (int i = 0; i < n.length; i++)
 	    a.add(n[i]);
-	// *** Question 3 ****
 	// Declare and instantiate a DuckDuckGoose object.
 	// The constructor's argument will be an ArrayList of Strings.
 	DuckDuckGoose app = new DuckDuckGoose(a);
-	//	app.play(N);
+    	app.play(N);
     }
 
 

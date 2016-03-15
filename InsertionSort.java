@@ -3,12 +3,16 @@ import java.util.ArrayList;
 public class InsertionSort {
     
     private static ArrayList<String> a;
+    private static DLinkedList d;
 
     public static void main(String[] args) {
 	int N = Integer.parseInt(args[0]);
 	a = new ArrayList<String>();
 	System.out.println(a.size());
 	randomize(N);
+	d = new DLinkedList();
+	for (int i = 0; i < a.size(); i++)
+	    d.addLast(a.get(i));
 	sort();
     }
 
@@ -21,12 +25,84 @@ public class InsertionSort {
 	}
 	System.out.println("Random: " + a);
     }
+    /*
+Here's a sample run: $java InsertionSort 10
 
+
+shuffled arraylist: [5, 7, 0, 6, 3, 9, 4, 2, 8, 1]
+Doubly linked list: [5, 7, 0, 6, 3, 9, 4, 2, 8, 1 ]
+ pivot: 7
+ end: 0
+ insert after: 5
+ sorting: [5, 7, 0, 6, 3, 9, 4, 2, 8, 1 ]
+ pivot: 0
+ end: 6
+ find insertion point : 7
+ find insertion point : 5
+ insert after: null
+ sorting: [0, 5, 7, 6, 3, 9, 4, 2, 8, 1 ]
+ pivot: 6
+ end: 3
+ find insertion point : 7
+ insert after: 5
+ sorting: [0, 5, 6, 7, 3, 9, 4, 2, 8, 1 ]
+ pivot: 3
+ end: 9
+ find insertion point : 7
+ find insertion point : 6
+ find insertion point : 5
+ insert after: 0
+ sorting: [0, 3, 5, 6, 7, 9, 4, 2, 8, 1 ]
+ pivot: 9
+ end: 4
+ insert after: 7
+ sorting: [0, 3, 5, 6, 7, 9, 4, 2, 8, 1 ]
+ pivot: 4
+ end: 2
+ find insertion point : 9
+ find insertion point : 7
+ find insertion point : 6
+ find insertion point : 5
+ insert after: 3
+ sorting: [0, 3, 4, 5, 6, 7, 9, 2, 8, 1 ]
+ pivot: 2
+ end: 8
+ find insertion point : 9
+ find insertion point : 7
+ find insertion point : 6
+ find insertion point : 5
+ find insertion point : 4
+ find insertion point : 3
+ insert after: 0
+ sorting: [0, 2, 3, 4, 5, 6, 7, 9, 8, 1 ]
+ pivot: 8
+ end: 1
+ find insertion point : 9
+ insert after: 7
+ sorting: [0, 2, 3, 4, 5, 6, 7, 8, 9, 1 ]
+ pivot: 1
+ end: null
+ find insertion point : 9
+ find insertion point : 8
+ find insertion point : 7
+ find insertion point : 6
+ find insertion point : 5
+ find insertion point : 4
+ find insertion point : 3
+ find insertion point : 2
+ insert after: 0
+ sorting: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+     */
+    public static void sort() {
+
+    }
+    
+    /*
     public static void sort() {
 	for (int i = 1; i < a.size(); i++) {
 	    System.out.println("start pass: " + i + " " + a);
-	    String move = a.get(i);
-	    System.out.println("walk down " + move);
+	    System.out.println("walk down " + a.get(i));
 	    for (int j = i; j > 0; j--) {
 		if (a.get(j).compareTo(a.get(j-1)) < 0) {
 		    a.set(j-1, a.set(j, a.get(j-1)));
@@ -36,5 +112,19 @@ public class InsertionSort {
 	}
 	System.out.println("Sorted: " + a);
     }
+    */
+
+    /*
+      publc static void insertionSort() {
+      for (int i = 0; i < a.size(); i++) {
+      System.out.println("start pass: " + i + " " + a);
+      walkR(i);
+      }
+      }
+
+      public static void walkR(int i) {
+      
+      }
+     */
 
 }

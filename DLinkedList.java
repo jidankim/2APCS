@@ -10,6 +10,14 @@ public class DLinkedList {
 	_header.setNext(_trailer);
     }
 
+    public boolean hasPrevious(DNode v) {
+	return v != _header;
+    }
+
+    public boolean hasNext(DNode v) {
+	return v != _trailer;
+    }
+
     // postcondition: return true if the list is empty false otherwise
     public boolean isEmpty() {
 	return size() == 0;
@@ -182,6 +190,7 @@ public class DLinkedList {
 	return ans;
     }
 
+    /*
     public static void main(String[] args) {
 	DLinkedList L = new DLinkedList();
 	System.out.println(L);   // []
@@ -200,5 +209,6 @@ public class DLinkedList {
 	}
 	
     }
+    */
 
 }

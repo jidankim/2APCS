@@ -56,7 +56,7 @@ public class CircleList {
 	if (len > 0) ans = abs.substring(0, len-2);
 	return "[" + ans "]";
     }
-    /*
+
     public static void main(String[] args) {
 	CircleList L = newCircleList();
 	System.out.println(L);
@@ -68,5 +68,4 @@ public class CircleList {
 	L.add(new Node("Ada", null));
 	System.out.println(L);
     }
-    */
 }

@@ -37,3 +37,39 @@ poisoned: 7
 poisoned: 3
 survivor: 2
 */
+
+public class Cult {
+    
+    private CircleList _circle;
+
+    public static void randomize(int n) {
+	for (int i = 0; i < n; i++) {
+	    int r = i + (int)(Math.random() * (n - i));
+	    Node t = _circle.remove();
+	    for (int j = 0; j < r; i++)
+		_circle.advance();
+	    _circle.add(t);
+	}
+    }
+
+    public static void survive(int k) {
+	while(_circle.size() > 1) {
+	    for (int i = 0; i < k-1; i++) {
+		
+	    }
+	}
+    }
+
+    public static void main(String[] args) {
+	int M = Integer.parseInt(args[0]);
+	int k = Integer.parseInt(args[1]);
+	_circle = new CircleList();
+	for (int i = 1; i <= M; i++) {
+	    _circle.add(new Node("" + i, null));
+	    _circle.advance();
+	}
+	randomize(M);
+	survive(k);
+    }
+
+}

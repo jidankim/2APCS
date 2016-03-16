@@ -163,7 +163,7 @@ public class DLinkedList {
 	    if (apple == zebra) return apple;
 	    zebra = getPrevious(zebra);
 	}
-	return null;
+	return apple;
     }
 
     /*

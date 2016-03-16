@@ -13,6 +13,12 @@ public class InsertionSort {
 	d = new DLinkedList();
 	for (int i = 0; i < a.size(); i++)
 	    d.addLast(a.get(i));
+	System.out.println("shuffled arrayList: " + a);
+	System.out.println("Doubly linekd list: " + d);
+	/*
+	 for (int i = a.size() - 1; i >= 0; i--)
+	 d.addFirst(a.get(i));
+	 */
 	sort();
     }
 
@@ -95,7 +101,23 @@ Doubly linked list: [5, 7, 0, 6, 3, 9, 4, 2, 8, 1 ]
 Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
      */
     public static void sort() {
-
+	for (int i = 1; i < d.size(); i++) {
+	    DNode curr = d.getFirst(); 
+	    DNode next = curr.getNext();
+	    System.out.println("pivot: " + curr.getNext());
+	    System.out.println("end: " + next.getNext());
+	    for (int j = i; j > 0; j--) {
+		if (next.getValue().compareTo(curr.getValue()) < 0) {
+		    d.addAfter(next, curr);
+		    System.out.println("find insertion point : " + curr);
+		} else {
+		    System.out.println("insert after: " + curr);
+		    break;
+		}
+		System.out.println("sorting: " + d);
+	    }
+	}
+	System.out.println("Sorted DLinkedList: " + d);
     }
     
     /*
@@ -115,7 +137,7 @@ Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
     */
 
     /*
-      publc static void insertionSort() {
+      publc static void insertionSortR() {
       for (int i = 0; i < a.size(); i++) {
       System.out.println("start pass: " + i + " " + a);
       walkR(i);
@@ -123,7 +145,14 @@ Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
       }
 
       public static void walkR(int i) {
-      
+      if (i <= 0) return;
+      String a = a.get(i-1);
+      String b = a.get(i);
+      if (a.compareTo(b) > 0) {
+      a.set(i-1, a.set(i, a.get(i-1)));
+      System.out.println(a);
+      walkR(i-1);
+      }
       }
      */
 

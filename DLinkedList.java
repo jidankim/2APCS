@@ -187,7 +187,7 @@ public class DLinkedList {
 	    current = current.getNext();
 	}
 	int len = ans.length();
-	ans = "[" + ans.substring(0, len - 2) + " ]";
+	ans = "[" + ans.substring(0, len - 2) + "]";
 	return ans;
     }
 

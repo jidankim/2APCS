@@ -38,25 +38,35 @@ poisoned: 3
 survivor: 2
 */
 
+import java.util.ArrayList;
+
 public class Cult {
     
-    private CircleList _circle;
+    private static CircleList _circle;
 
     public static void randomize(int n) {
+	ArrayList a = new ArrayList<String>();
+	for (int i = 1; i <= n; i++)
+	    a.add("" + i);
 	for (int i = 0; i < n; i++) {
 	    int r = i + (int)(Math.random() * (n - i));
-	    Node t = _circle.remove();
-	    for (int j = 0; j < r; i++)
-		_circle.advance();
-	    _circle.add(t);
+	    a.set(i, a.set(r, "" + a.get(i)));
+	}
+	for (int i = 0; i < n; i++) {
+	    _circle.add(new Node("" + a.get(i), null));
+	    _circle.advance();
 	}
     }
-
+   
     public static void survive(int k) {
+	for (int i = 1; i < _circle.size(); i++)
+	    _circle.advance(); // last node is now the cursor
 	while(_circle.size() > 1) {
-	    for (int i = 0; i < k-1; i++) {
-		
+	    for (int i = 0; i < k; i++) {
+		_circle.advance();
 	    }
+	    System.out.println("poisoned: " + _circle.remove());
+	    
 	}
     }
 
@@ -64,11 +74,8 @@ public class Cult {
 	int M = Integer.parseInt(args[0]);
 	int k = Integer.parseInt(args[1]);
 	_circle = new CircleList();
-	for (int i = 1; i <= M; i++) {
-	    _circle.add(new Node("" + i, null));
-	    _circle.advance();
-	}
 	randomize(M);
+	System.out.println(_circle);
 	survive(k);
     }
 

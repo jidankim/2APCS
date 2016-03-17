@@ -101,61 +101,41 @@ Doubly linked list: [5, 7, 0, 6, 3, 9, 4, 2, 8, 1 ]
 Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
      */
     public static void sort() {
-	DNode curr = d.getFirst().getNext();
-	for (int i = 1; i < d.size(); i++) {
-	    System.out.println("sorting: " + d);
-	    walkR(i, curr);
-	}
-    }
-
-    public static void walkR(int i, DNode curr) {
-	if (i <= 0) return;
-	String a = curr.getPrevious().getValue();
-	String b = curr.getValue();
-	if (a.compareTo(b) > 0) {
-	    DNode afterCurr = d.getNext(curr);
-	    curr.setNext(curr.getPrevious());
-	    curr.getPrevious().setPrevious(curr);
-	    afterCurr.setPrevious(curr.getPrevious());
-	    curr.getPrevious().setNext(afterCurr);
-	    System.out.println("find insertion point: " + curr);
-	    walkR(i-1, curr.getNext());
-	}
-    }
-
-    
-    /*
-    public static void sort() {
-	for (int i = 1; i < d.size(); i++) {
-	    DNode curr = d.getFirst().getNext(); 
-	    DNode next = curr.getNext();
-	    System.out.println("pivot: " + curr);
-	    System.out.println("end: " + next);
-	    for (int j = i; j > 0; j--) {
-		if (curr.getValue().compareTo(curr.getPrevious().getValue()) < 0) {
-		    DNode afterCurr = d.getNext(curr);
-		    curr.setNext(curr.getPrevious());
-		    curr.getPrevious().setPrevious(curr);
-		    afterCurr.setPrevious(curr.getPrevious());
-		    curr.getPrevious().setNext(afterCurr);
-		    System.out.println("find insertion point : " + curr);
-		} else {
-		    System.out.println("insert after: " + curr);
-		    System.out.println("sorting: " + d);
-		    curr = next;
-		    next = curr.getNext();
-		    break;
-		}
-		System.out.println("sorting: " + d);
-		curr = next;
-		next = curr.getNext();
+	int N = d.size();
+	DNode pivot = d.getFirst().getNext();
+	for (int i = 1; i < N; i++) {
+	    DNode pivotNext = pivot.getNext();
+	    DNode prev = pivot.getPrevious();
+	    while (d.hasPrevious(prev) &&
+		   pivot.getValue().compareTo(prev.getValue()) < 0) {
+		prev = prev.getPrevious();
 	    }
+	    d.remove(pivot);
+	    d.addafter(prev, pivot);
+	    // pivot = pivot.getNext(); ** Mistake **
+	    pivot = pivotNext;
 	}
-	System.out.println("Sorted DLinkedList: " + d);
     }
-    */
-    
+
     /*
+      public static void sort() {
+      DNode curr = L.getFirst().getNext();
+      while (L.hasNext(curr)) {
+      DNode prev = curr.getPrevious();
+      DNode next = curr.getNext();
+      while (L.hasPrevious(prev)) {
+      if (prev.getValue().compareTo(curr.getValue()) > 0 {
+      prev = prev.getPrevios();
+      } else break;
+      }
+      L.remove(curr);
+      L.addAfter(prev, curr);
+      curr = next;
+      }
+      }
+     */
+    
+    /* arraylist insertion sort v1
     public static void sort() {
 	for (int i = 1; i < a.size(); i++) {
 	    System.out.println("start pass: " + i + " " + a);
@@ -171,7 +151,7 @@ Sorted DLinkedList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
     }
     */
 
-    /*
+    /* arraylist insertion sort v2
       publc static void insertionSortR() {
       for (int i = 0; i < a.size(); i++) {
       System.out.println("start pass: " + i + " " + a);

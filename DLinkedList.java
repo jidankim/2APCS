@@ -159,6 +159,7 @@ public class DLinkedList {
 	DNode apple = getFirst();
 	DNode zebra = getLast();
 	while (apple != zebra) {
+	    // if (apple == zebra) return apple;
 	    apple = getNext(apple);
 	    if (apple == zebra) return apple;
 	    zebra = getPrevious(zebra);

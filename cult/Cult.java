@@ -59,15 +59,14 @@ public class Cult {
     }
    
     public static void survive(int k) {
-	for (int i = 1; i < _circle.size(); i++)
-	    _circle.advance(); // last node is now the cursor
 	while(_circle.size() > 1) {
-	    for (int i = 0; i < k; i++) {
+	    for (int i = 0; i < k-1; i++) {
 		_circle.advance();
 	    }
 	    System.out.println("poisoned: " + _circle.remove());
 	    
 	}
+	System.out.println("survivor: " + _circle.remove());
     }
 
     public static void main(String[] args) {

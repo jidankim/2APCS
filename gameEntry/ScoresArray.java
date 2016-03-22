@@ -21,23 +21,50 @@ public class ScoresArray {
     //       if the entry is added, the entries 
     //       with a lower rank are shifted down
     public boolean add(GameEntry entry) {
-	int pos = numScores() - 1;
-	if (entry.compareTo(_scores[pos]) < 0)
-	    return false;
-	else {
-	    for (pos = numScores()-2; pos >= 0; pos--) {
-		if (entry.compareTo(_scores[pos]) > 0)
-		    break;
-	    }
-	    GameEntry tempIn = entry;
-	    GameEntry tempOut = _scores[pos+1];
-	    for (int i = pos+1; i < numScores()-1; i++) {
-		_scores[i] = tempIn;
-		tempOut = _scores[i+1];
-		tempIn = tempOut;
-	    }
+	/*
+	  boolean topTen = false;
+	  int i = 0;
+	  for (; i < numScores(); i++) {
+	      if (entry.compareTo(_scores[i]) > 0) {
+		  topTen = true;
+		  break;
+	      }
+	  }
+	  if (! topTen) return false;
+	  _scores[numScores() - 1] = null;
+	  for (int j = numScores() - 2; j >= i; j--) {
+	      _scores[j+1] = _scores[j];
+	  } 
+	  _scores[i] = entry;
+	  return true;
+	*/
+	  boolean ans = false;
+	  for (int i = 0; i < numScores(); i++) {
+	      if (entry.compareTo(_scores[i]) > 0) {
+		  GameEntry temp = _scores[i];
+		  _scores[i] = entry;
+		  entry = temp;
+		  ans = true;
+	      }
+	  }
+	  return ans;
+	 
+    }
+
+    public boolean addBS(GameEntry entry) {
+	int high = 0;
+	int low = numScores() - 1;
+	return false;
+    }
+
+    public void initialize(int len, int maxScore) {
+	for (int i = 0; i < numScores(); i++) {
+	    GameEntry entry = GameEntry.randomEntry(len, maxScore);
+	    if (add(entry))
+		System.out.println("adding : " + entry);
+	    else
+		System.out.println(entry + " not added");
 	}
-	return true;
     }
 
     public GameEntry topEntry() {
@@ -57,9 +84,12 @@ public class ScoresArray {
     }
 
     public static void main(String[] args) {
-	ScoresArray s = new ScoresArray(5);
-	System.out.println("scores: " + s.numScores());
-	System.out.println("top entry: " + s.topEntry());
+	ScoresArray s = new ScoresArray(10);
+	System.out.println(s);
+	s.initialize(3, 2000);
+	System.out.println(s);
+	GameEntry a = GameEntry.randomEntry(3, 2000);	
+	s.add(a);
 	System.out.println(s);
     }
 

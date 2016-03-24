@@ -28,8 +28,8 @@ public class GameEntry implements Comparable<GameEntry>{
 	return initials;
     }
 
-    public static GameEntry randomEntry(int len, int maxScore) {
-	return new GameEntry(randomInitials(len), randomScore(maxScore));
+    public static GameEntry randomEntry(int len, int max) {
+	return new GameEntry(randomInitials(len), randomScore(max));
     }
 
     public int getScore(){

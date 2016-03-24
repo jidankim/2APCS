@@ -51,9 +51,57 @@ public class ScoresArray {
 	 
     }
 
+    public boolean add2(GameEntry t) {
+	for (int i = 0; i < _scores.length; i++) {
+	    if (entry.compareTo(_scores[i]) > 0) {
+		GameEntry t = _scores[i];
+		_scores[i] = entry;
+		while(++i < _scores.length) {
+		    entry = t;
+		    t = _scores[i];
+		    _scores[i] = entry;
+		}
+		return true;
+	    }
+	}
+	return false;
+    } 
+
+    // starts at the bottom, best
+    public boolean add3(GameEntry entry) {
+	int N = numScores();
+	if (entry.compareTo(_scores[N-1]) <= 0)
+	    return false;
+	for (int i = N-1; i >0; i--) {
+	    _scores[i] = _scores[i-1];
+	    if (entry.compareTo(_scores[i]) < 0) {
+		_scores[i] = entry;
+		return true;
+	    }
+	}
+	_scores[0] = entry;
+	return true;
+    }
+
+    // use a modified binary search to find the insertion point
     public boolean addBS(GameEntry entry) {
-	int high = 0;
-	int low = numScores() - 1;
+	int lower = 0;
+	int upper = numScores();
+	int pos = (lower + upper) / 2;
+	while (lower < upper) {
+	    if (entry.compareTo(_scores[pos]) > 0) {
+		if (pos == 0 || entry.compareTo(_scores[pos - 1]) < 0)
+		    break;
+		else upper = pos - 1;
+	    } else lower = pos + 1;
+	    pos = (lower + upper) / 2;
+	}
+	if (pos >= numScores()) return false;
+	while (pos < numScores()) {
+	    GameEntry t = _scores[pos];
+	    _scores[pos++] = entry;
+	    entry = t;
+	}
 	return false;
     }
 
@@ -86,7 +134,7 @@ public class ScoresArray {
     public static void main(String[] args) {
 	ScoresArray s = new ScoresArray(10);
 	System.out.println(s);
-	s.initialize(3, 2000);
+	s.initialize(3, 1000);
 	System.out.println(s);
 	GameEntry a = GameEntry.randomEntry(3, 2000);	
 	s.add(a);

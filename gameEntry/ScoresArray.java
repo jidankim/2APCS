@@ -51,7 +51,7 @@ public class ScoresArray {
 	 
     }
 
-    public boolean add2(GameEntry t) {
+    public boolean add2(GameEntry entry) {
 	for (int i = 0; i < _scores.length; i++) {
 	    if (entry.compareTo(_scores[i]) > 0) {
 		GameEntry t = _scores[i];

@@ -5,7 +5,8 @@ public class Reverse {
 
     // generic method
     public static<E> void reverse(List<E> L) {
-	Stack<E> stack = new ArrayStack<E>(L.size());
+	Stack<E> stack = new NodeStack<E>();
+	// Stack<E> stack = new ArrayStack<E>(L.size());
 	for (int i = 0; i < L.size(); i++)
 	    stack.push(L.get(i)); // O(1) for an ArrayList
 	                          // O(N) for a Linked List
@@ -19,6 +20,24 @@ public class Reverse {
 	                                 // O(N) for a LinkedList
 	    counter++;
 	}
+    }
+
+    // post : returns true if the value is in the stack
+    //        the order of stack should remain the same after the function
+    public static<E> boolean inStack(Stack<E> stack, E value) {
+	Stack<E> aux = new NodeStack<E>();
+	boolean ans = false;
+	while (!stack.isEmpty()) {
+	    if (value.equals(stack.top())) {
+		ans = true;
+		break;
+	    }
+	    aux.push(stack.pop());
+	}
+	while (!aux.isEmpty()) {
+	    stack.push(aux.pop());
+	}
+	return ans;
     }
 
     public static void main(String[] args) {

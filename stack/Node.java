@@ -30,10 +30,6 @@ public class Node<E> {
 	return ans;
     }
 
-    public E toString() {
-	return getValue();
-    }
-
     //    public static void main(String[] args) {
 	//	Node a = new Node("Sue", new Node("Mary", new Node("Bill", null)));
 	//	System.out.println(a);

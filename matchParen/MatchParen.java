@@ -37,6 +37,19 @@ public class MatchParen{
     // pre: is empty or only contains parentheses.
     public static boolean match(String exp){
         // < Your code goes here >	
+	Stack<String> stack = new NodeStack<String>();
+	if (exp.length() % 2 == 1) return false;
+	while(exp.length() != 0) {
+	    String token = exp.substring(0, 1);
+	    if (contains(CLOSING, token)) {
+		if (!stack.isEmpty() && OPENING.indexOf(token) == 
+		    CLOSING.indexOf(stack.top())) {
+		    stack.pop();
+		} else return false;
+	    } else stack.push(token);
+	    exp = exp.substring(1);
+	}
+	return stack.isEmptpy();
     }
 
     // Assuming ()[]{} are the only characters

@@ -65,7 +65,7 @@ public class ArrayStack<E> implements Stack<E> {
     }
 
     public static void main(String[] args){
-	ArrayStack<Integer> s = new ArrayStack<Integer>(10);
+	Stack<Integer> s = new ArrayStack<Integer>(10);
 	System.out.println("Empty: " + s.isEmpty());
 	System.out.println(s);
 	for (int i = 0; i < 10; i++){

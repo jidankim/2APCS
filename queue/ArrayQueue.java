@@ -1,24 +1,24 @@
-public class ArrayStack<E> implements Stack<E> {
+public class ArrayQueue<E> implements Queue<E> {
 
-    private E[] _stack;
-    private int _capacity;
-    private int _top; // refers to the index position of the top
+    private E[] _queue;
+    private int _size, _front, _rear;
     
     private final static int CAPACITY = 1000;
 
-    public ArrayStack(int capacity) {
-	_stack = (E[]) new Object[capacity]; // compiler warning
-	_capacity = capacity;
-	_top = -1;
+    public ArrayQueue(int capacity) {
+	_queue = (E[]) new Object[capacity]; // compiler warning
+	_size = 0;
+	_front = 0;
+	_rear = 0;
     }
 
-    public ArrayStack() {
+    public ArrayQueue() {
 	this(CAPACITY);
     }
 
     // O(1)
     public int size() {
-	return _top + 1;
+	return _size;
     }
     
     // O(1)
@@ -27,54 +27,54 @@ public class ArrayStack<E> implements Stack<E> {
     }
 
     // O(1)
-    public void push(E element) throws FullStackException{
-	if (size() == _capacity)
-	    throw new FullStackException("Stack is full");
-	_stack[++_top] = element;
+    public void enqueue(E element) throws FullQueueException{
+	if (size() == _queue.length)
+	    throw new FullQueueException("Queue is full");
+	// _queue[_rear++ % _queue.length] = element; wrong?
+	_queue[_rear] = element;
+	_rear = (_rear + 1) % _queue.length;
+	_size++;
     }
 
     // O(1)
-    public E top() throws EmptyStackException{
+    public E front() throws EmptyQueueException{
 	if (isEmpty())
-	    throw new EmptyStackException("Stack is empty");
-	return _stack[_top];
+	    throw new EmptyQueueException("Queue is empty");
+	return _queue[_front];
     }
 
     // O(1)
-    public E pop() throws EmptyStackException{
-	E ans = top();
-	_stack[_top--] = null;
+    public E dequeue() throws EmptyQueueException{
+	E ans = front();
+	// _queue[_front++ % _queue.length] = null;
+	_queue[_front] = null;
+	_front = (_front + 1) % _queue.length;
+	_size--;
 	return ans;
-    }
-
-    public void transferTo(ArrayStack<E> rhs) {
-	while (!isEmpty() && rhs.size != rhs._capacity) {
-	    rhs.push(pop());
-	}
     }
 
     // O(N)
     public String toString() {
 	String ans = "[";
-	if (size() > 0) ans += _stack[0];
+	if (size() > 0) ans += _queue[0];
 	if (size() > 1) 
 	    for (int i = 1; i < size(); i++)
-		ans += ", " + _stack[i];
+		ans += ", " + _queue[i];
 	ans += "]";
 	return ans;
     }
 
     public static void main(String[] args){
-	Stack<Integer> s = new ArrayStack<Integer>(10);
-	System.out.println("Empty: " + s.isEmpty());
-	System.out.println(s);
+	Queue<Integer> q = new ArrayQueue<Integer>(10);
+	System.out.println("Empty: " + q.isEmpty());
+	System.out.println(q);
 	for (int i = 0; i < 10; i++){
-	    s.push(i);
-	    System.out.println("push: " + i + " " + s);
+	    q.enqueue(i);
+	    System.out.println("enqueue: " + i + " " + q);
 	}
-	System.out.println("top: " + s.top());
-	while (!s.isEmpty()){
-	    System.out.println("pop: " + s.pop() + " " + s);
+	System.out.println("front: " + q.front());
+	while (!q.isEmpty()){
+	    System.out.println("dequeue: " + q.dequeue() + " " + q);
 	}
 
     }

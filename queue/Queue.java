@@ -1,4 +1,4 @@
-public interface Stack<E> {
+public interface Queue<E> {
 
     // inserts element e at the rear of the queue
     public void enqueue(E element);

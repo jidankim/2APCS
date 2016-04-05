@@ -1,0 +1,76 @@
+public class NodeQueue<E> implements Queue<E> {
+
+    private Node<E> _queueFront, _queueRear;
+    private int _size;
+
+    public NodeQueue() {
+	_queueFront = null;
+	_queueRear = null;
+	_size = 0;
+    }
+
+    public int size() {
+	return _size;
+    }
+
+    public boolean isEmpty() {
+	return size() == 0;
+    }
+
+    // O(1)
+    public void enqueue(E element) {
+	if (isEmpty()) {
+	    _queueRear = new Node<E>(element, null);
+	    _queueFront = _queueRear;
+	} else {
+	    _queueRear.setNext(new Node<E>(element, null));
+	    _queueRear = _queueRear.getNext();
+	}
+	_size++;
+    }
+
+    // O(1)
+    public E front() throws EmptyQueueException{
+	if (isEmpty()) 
+	    throw new EmptyQueueException("Queue is empty");
+	return _queueFront.getValue();
+    }
+
+    // O(1)
+    public E dequeue() throws EmptyQueueException{
+	E ans = front();
+	Node<E> t = _queueFront.getNext();
+	_queueFront = null;
+	_queueFront = t;
+	_size--;
+	return ans;
+    }
+
+    public String toString() {
+	String ans = "[";
+	if (size() > 0) ans += _queueFront.getValue();
+	if (size() > 1) {
+	    for (int i = 1; i < size(); i++) {
+		_queueFront = _queueFront.getNext();
+		ans += ", " + _queueFront.getValue();
+	    }
+	}
+	ans += "]";
+	return ans;
+    }
+    
+    public static void main(String[] args){
+	NodeQueue<Integer> q = new NodeQueue<Integer>();
+	System.out.println("Empty: " + q.isEmpty());
+	System.out.println(q);
+	for (int i = 0; i < 10; i++){
+	    q.enqueue(i);
+	    System.out.println("enqueue: " + i + " " + q);
+	}
+	System.out.println("front: " + q.front());
+	while (!q.isEmpty()){
+	    System.out.println("dequeue: " + q.dequeue() + " " + q);
+	}
+    }
+
+}

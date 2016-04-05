@@ -58,7 +58,7 @@ public class ArrayQueue<E> implements Queue<E> {
 	String ans = "[";
 	if (size() > 0) ans += _queue[0];
 	if (size() > 1) 
-	    for (int i = 1; i < size(); i++)
+	    for (int i = (_front + 1)%_queue.length; i != _rear; i=(i+1)%_queue.length)
 		ans += ", " + _queue[i];
 	ans += "]";
 	return ans;

@@ -7,6 +7,7 @@ public class StackQ<E> implements Stack<E> {
 	_temp = new NodeQueue<E>();
     }
 
+    // O(1)
     // pre: _main represents the stack, _temp is empty
     public E top() throws EmptyStackException{
 	if (isEmpty()) throw new EmptyStackException("Empty Stack.");
@@ -25,6 +26,9 @@ public class StackQ<E> implements Stack<E> {
 	while (!_main.isEmpty()) {
 	    _temp.enqueue(_main.dequeue());
 	}
+	Queue<E> holder = _temp;
+	_temp = _main;
+	_main = holder;
     }
 
     public int size() {
@@ -36,10 +40,7 @@ public class StackQ<E> implements Stack<E> {
     }
 
     public String toString() {
-	String ans;
-	if (_main.isEmpty()) ans = _temp.toString();
-	else ans = _main.toString();
-	return ans;
+	return  _main.toString();
     }
 
     public static void main(String[] args) {

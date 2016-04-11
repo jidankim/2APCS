@@ -43,14 +43,23 @@ public class NodeQueue<E> implements Queue<E> {
 	if (isEmpty()) _queueRear = null;
 	return ans;
     }
-
-    public String toString() {
-	String ans = "[";
-
+ 
+    public String toString(){
+	String ans = "[ ";
+	if (size() > 0) {
+	    ans += front();
+	}
+	if (size() > 1){
+	    Node<E> current = _queueFront.getNext();
+	    while (current != null){
+		ans += ", " + current.getValue();
+		current = current.getNext();
+	    }
+	}
 	ans += "]";
 	return ans;
     }
-    
+
     public static void main(String[] args){
 	NodeQueue<Integer> q = new NodeQueue<Integer>();
 	System.out.println("Empty: " + q.isEmpty());

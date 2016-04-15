@@ -64,27 +64,37 @@ public class ArrayDeque<E> implements Deque<E> {
 
     public E removeFirst() throws EmptyDequeException {
 	E ans = getFirst();
-	_arrayDeq[floorMod(_head+1, size())] = null;
+	_arrayDeq[floorMod(_head+1, _capacity)] = null;
 	_head = floorMod(_head+1, _capacity);
 	_size--;
 	return ans;
+	/*
+	  E ans = getFirst();
+	  int newHead = floorMod(_head + 1, _capacity);
+	  _arrayDeq[newHead] = null;
+	  _head = newHead;
+	  _size--;
+	  return ans;
+	 */
     }
 
     public E removeLast() throws EmptyDequeException {
 	E ans = getLast();
-	_arrayDeq[floorMod(_tail-1, size())] = null;
+	_arrayDeq[floorMod(_tail-1, _capacity)] = null;
 	_tail = floorMod(_tail-1, _capacity);
 	_size--;
 	return ans;
     }
 
     public boolean offerFirst(E val) {
-	addFirst(val);
-	return true;
+	if (isFull())
+	    return false;
+	return addFirst(val);
     }
     public boolean offerLast(E val) {
-	addLast(val);
-	return true;
+	if (isFull())
+	    reutrn false;
+	return addLast(val);
     }
 
     public E pollFirst() {

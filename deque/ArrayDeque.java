@@ -1,21 +1,33 @@
 public class ArrayDeque<E> implements Deque<E> {
 
     private E[] _arrayDeq;
-    private int _head, _tail, _capacity;
+    private int _head, _tail, _capacity, _size;
+
+    public final static int CAPACITY = 1000;
 
     public ArrayDeque(int capacity) {
 	_arrayDeq = (E[]) new Object[capacity+1];
 	_head = 0;
 	_tail = 1;
-	_capacity = capacity;
+	_capacity = capacity+1;
+	_size = 0;
+    }
+
+    public ArrayDeque() {
+	this(CAPACITY);
     }
 
     public int size() {
-	return _arrayDeq.length;
+	return _size;
     }
 
     public boolean isEmpty() {
 	return size() == 0;
+    }
+
+    public boolean isFull() {
+	return size() + 1 >= _capacity;
+	// return _head == _tail;
     }
 
     public int floorMod(int a, int b) {
@@ -25,36 +37,44 @@ public class ArrayDeque<E> implements Deque<E> {
     public E getFirst() throws EmptyDequeException {
 	if (isEmpty()) 
 	    throw new EmptyDequeException("empty deque.");
-	return _arrayDeq[floorMod(_head+1, size())];
+	return _arrayDeq[floorMod(_head+1, _capacity)];
     }
 
     public E getLast() throws EmptyDequeException {
 	if (isEmpty())
 	    throw new EmptyDequeException("empty deque.");
-	return _arrayDeq[floorMod(_tail-1, size())];
+	return _arrayDeq[floorMod(_tail-1, _capacity)];
     }
 
-    public void addFirst(E val) {
+    public void addFirst(E val) throws FullDequeException{
+	if (isFull())
+	    throw new FullDequeException("full deque.");
 	_arrayDeq[_head] = val;
-	_head = floorMod(_head-1, size());
+	_head = floorMod(_head-1, _capacity);
+	_size++;
     }
 
-    public void addLast(E val) {
+    public void addLast(E val) throws FullDequeException {
+	if (isFull())
+	    throw new FullDequeException("full deque.");
 	_arrayDeq[_tail] = val;
-	_tail = floorMod(_tail+1, size());
+	_tail = floorMod(_tail+1, _capacity);
+	_size++;
     }
 
     public E removeFirst() throws EmptyDequeException {
 	E ans = getFirst();
 	_arrayDeq[floorMod(_head+1, size())] = null;
-	_head = floorMod(_head+1, size());
+	_head = floorMod(_head+1, _capacity);
+	_size--;
 	return ans;
     }
 
     public E removeLast() throws EmptyDequeException {
 	E ans = getLast();
 	_arrayDeq[floorMod(_tail-1, size())] = null;
-	_tail = floorMod(_tail-1, size());
+	_tail = floorMod(_tail-1, _capacity);
+	_size--;
 	return ans;
     }
 
@@ -90,10 +110,10 @@ public class ArrayDeque<E> implements Deque<E> {
 	if (size() > 0){
 	    ans += getFirst() + "";
 	    if (size() > 1){
-		int curr = floorMod(_head+2, size());
+		int curr = floorMod(_head+2, _capacity);
 		while (curr != _tail){
 		    ans += ", " + _arrayDeq[curr];
-		    curr = floorMod(curr+1, size());
+		    curr = floorMod(curr+1, _capacity);
 		}
 	    }
 	}
@@ -102,7 +122,7 @@ public class ArrayDeque<E> implements Deque<E> {
     }
 
     public static void main(String [] args){
-	Deque<Integer> d = new ArrayDeque<Integer>(1000);
+	Deque<Integer> d = new ArrayDeque<Integer>(10);
 	System.out.println(d);
 	for (int i = 0;i < 10; i++){
 	    double r = Math.random();

@@ -41,6 +41,7 @@ public class TreeApp {
     }
 
     public static<E> int countLeaves(TreeNode<E> root) {
+	if (root == null) return 0;
 	if (isLeaf(root)) return 1;
 	return countLeaves(root.getLeft()) + countLeaves(root.getRight());
     }

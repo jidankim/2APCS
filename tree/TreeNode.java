@@ -1,4 +1,4 @@
-public class TreeNode<E> {
+public class TreeNode<E>{
 
     private E _value;
     private TreeNode<E> _left, _right;

@@ -43,6 +43,10 @@ public class TreeNode<E>{
 	return temp;
    }
 
+    public boolean isLeaf() {
+	return getRight() == null && getLeft() == null;
+    }
+
     public tSTring toString() {
 	return getValue() + "";
     }

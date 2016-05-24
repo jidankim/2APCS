@@ -14,6 +14,40 @@ public class Demo {
 	
     }
 
+    // O(log N)
+    // pre: the list represents a heap with the minimum val at root (index 0)
+    public static void add(ing v, ArrayList<Integer> heap) {
+	heap.add(v); // adds to the end
+	int pos = heap.size() - 1;
+	while (pos > 0) {
+	    int parentPos = (pos - 1) / 2;
+	    if (heap.get(pos) >= heap.get(parentPos)) break;
+	    heap.set(pos, heap.set(parentPos, v));
+	    pos = parentPos;
+	}
+    }
+
+    public static int removeMin(ArrayList<Integer> heap) {
+	int N = heap.size() - 1;
+	int ret = heap.set(0, heap.remove(N));
+        int pos = 0;
+	while (pos < N) {
+	    int child1 = pos * 2;
+	    int child2 = pos * 2 + 1;
+	    if (child1 >= N || child2 >= N || 
+		heap.get(pos) > heap.get(child1) || 
+		heap.get(pos) > heap.get(child2)) break;
+	    if (heap.get(child1) > heap.get(child2)) {
+		heap.set(child2, heap.set(pos, heap.get(child2)));
+		pos = child2;
+	    } else {
+		heap.set(child1, heap.set(pos, heap.get(child1)));
+		pos = child1;
+	    }
+	}
+	return ret;
+    }
+
     public static void main(String[] args) {
 	
     }

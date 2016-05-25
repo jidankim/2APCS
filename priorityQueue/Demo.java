@@ -1,4 +1,5 @@
 import java.util.PriorityQueue;
+import java.util.Comparator;
 
 public class Demo {
 
@@ -27,29 +28,61 @@ public class Demo {
 	}
     }
 
-    public static int removeMin(ArrayList<Integer> heap) {
-	int N = heap.size() - 1;
-	int ret = heap.set(0, heap.remove(N));
-        int pos = 0;
-	while (pos < N) {
-	    int child1 = pos * 2;
-	    int child2 = pos * 2 + 1;
-	    if (child1 >= N || child2 >= N || 
-		heap.get(pos) > heap.get(child1) || 
-		heap.get(pos) > heap.get(child2)) break;
-	    if (heap.get(child1) > heap.get(child2)) {
-		heap.set(child2, heap.set(pos, heap.get(child2)));
-		pos = child2;
-	    } else {
-		heap.set(child1, heap.set(pos, heap.get(child1)));
-		pos = child1;
-	    }
-	}
-	return ret;
+    public static int minChildPos(int pos, ArrayList<Integer> heap) {
+        int left = 2 * pos + 1;
+	int right = left + 1;
+	// no children
+	if (left >= heap.size()) return -1;
+	// only a left child
+	if (right >= heap.size()) return left;
+	// both children exist
+	if (heap.get(left) <= heap.get(right)) return left;
+	return right;
     }
 
-    public static void main(String[] args) {
+    public static int removeMin(ArrayLIst<Integer> heap) {
+	int N = heap.size();
+	int ans = heap.get(0);
+	int x = heap.remove(N-1);
+	if (N > 0) {
+	    heap.set(0,x);
+	    int pos = 0;
+	    int mcPos = minChildPos(pos, heap);
+	    while (mcPos != -1) {
+		if (heap.get(pos) <= heap.get(mcPos)) break;
+		heap.set(pos, heap.set(mcPos, heap.get(pos)));
+		pos = mcPos;
+		mcPOs = minChildPos(pos, heap);
+	    }
+	}
+	return ans;
+    }
+
+    public static void main(String [] args){
+	String [] fruits = {"apple","banana","watermelon", "pear", "grapes", "cantalope", "orange", "kiwi"};
+
+	PriorityQueue<String> pq = new PriorityQueue<String>();
+
+	Comparator<String> comp = new ReverseComparator<String>();
+	PriorityQueue<String> pq2 = new PriorityQueue<String>(comp);
 	
+	System.out.println("***** adding *****");
+	for (String fruit: fruits){
+	    pq.add(fruit);
+	    pq2.add(fruit);
+	    System.out.println("add: " + fruit);
+	    System.out.println("\tmin pq: " + pq);
+	    System.out.println("\tmax pq: " + pq2);
+	}
+
+	
+	System.out.println("***** removing *****");	
+	while(pq2.size() != 0){
+	    System.out.print("remove min: " + pq.poll());
+	    System.out.println("\t min pq : " + pq);
+	    System.out.print("remove max: " + pq2.poll());
+	    System.out.println("\t max pq : " + pq2);
+	}
     }
 
 }
